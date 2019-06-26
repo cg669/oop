@@ -14,3 +14,28 @@ html,body,.root{
     position: absolute;
     background-color: #234567;
 }
+/* 子弹 */
+.biu{
+    position: absolute;
+    background-color: green;
+    border-radius: 100%;
+}
+.biu-big{
+   width: 10px; 
+   height: 10px;
+}
+.biu-middle{
+    width: 6px; 
+    height: 6px;
+}
+.biu-small{
+    width: 4px; 
+    height: 4px;
+}
+/* 敌军 */
+.emy{
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    background-color: red;
+}

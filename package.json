@@ -18,7 +18,9 @@
     "url": "https://github.com/zhangchengguang/oop/issues"
   },
   "homepage": "https://github.com/zhangchengguang/oop#readme",
-  "dependencies": {},
+  "dependencies": {
+    "uuid-js": "^0.7.5"
+  },
   "devDependencies": {
     "@types/webpack": "^4.4.34",
     "babel": "^6.23.0",
