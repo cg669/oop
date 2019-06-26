@@ -2,18 +2,25 @@
 import * as UUID from 'uuid-js';
 import {
     BiuOptions,
-    BasePostion
+    BasePostion,
+    WidthAndHeight
 } from '../model/index';
 import {  windowHeight } from '../constant';
+import workBus from './workBus';
 export default class Emy{
 
-    private key: string;
+    key: string;
 
-    private el: HTMLElement;
+    el: HTMLElement;
 
     private size: string;
 
     private speed: number;
+
+    wh: WidthAndHeight = {
+        width: 200,
+        height: 30
+    }; 
 
     basePostion: BasePostion;
 
@@ -44,7 +51,7 @@ export default class Emy{
             const top = this.el.offsetTop;
             const elStyle = window.getComputedStyle(this.el,null);
             // console.log(top,windowHeight - parseInt(elStyle.getPropertyValue('height')));
-            if(top < windowHeight - parseInt(elStyle.getPropertyValue('height'))){
+            if(top < windowHeight - parseInt(elStyle.getPropertyValue('height')) && !workBus.isBoom(this.el,'emy')){
                 // console.log(this.el.style.top);
                 this.el.style.top = parseInt(elStyle.getPropertyValue('top') ) + this.speed + 'px';
                 this.move();
@@ -56,6 +63,7 @@ export default class Emy{
         })
     }
     destroyed() {
+        workBus.deleteEmy(this.key);
         this.container.removeChild(this.el);
     }
 }

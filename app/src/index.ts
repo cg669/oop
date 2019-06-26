@@ -1,11 +1,13 @@
 import Self from './components/self';
 import EmyBus from './components/emyBus';
+
+
 const root = document.getElementById('root');
 
 const self = new Self(root,{
     width: 100,
     height: 120,
-    level: 'easy'
+    level: 'hard'
 });
 new EmyBus(root);
 // const self2 = new Self(root,{

@@ -2,13 +2,17 @@
 import * as UUID from 'uuid-js';
 import {
     BiuOptions,
-    BasePostion
-} from '../model/index';
+    BasePostion,
+    WidthAndHeight
+} from '../model';
+
+import workBus from './workBus';
+
 export default class Biu{
 
-    private key: string;
+    key: string;
 
-    private el: HTMLElement;
+    el: HTMLElement;
 
     private size: string;
 
@@ -18,6 +22,10 @@ export default class Biu{
 
     container: HTMLElement;
 
+    position: BasePostion;
+
+    wh: WidthAndHeight; 
+
     iTimer = null;
 
     constructor( container: HTMLElement, options:BiuOptions ){
@@ -26,7 +34,25 @@ export default class Biu{
         this.basePostion = options.basePostion;
         this.speed = options.speed;
         this.container = container;
+        this.wh =  this.getWh(options.size);
         this.init();
+    }
+    private getWh(size: string):WidthAndHeight{
+        if(size === 'big'){
+            return {
+                width: 10,
+                height: 10
+            }
+        }else if( size==='noraml'){
+            return {
+                width: 6,
+                height: 6
+            }
+        }
+        return {
+            width: 4,
+            height: 4
+        }
     }
     init(){
         const oDiv = document.createElement('div');
@@ -42,7 +68,8 @@ export default class Biu{
         this.iTimer = requestAnimationFrame( ()=> {
             const top = this.el.offsetTop;
             const elStyle = window.getComputedStyle(this.el,null);
-            if(top > parseInt(elStyle.getPropertyValue('height'))){
+            // console.log(workBus.isBiuBoom(this.key));
+            if(top > parseInt(elStyle.getPropertyValue('height')) && !workBus.isBoom(this.el)){
                 // console.log(this.el.style.top);
                 this.el.style.bottom = parseInt(elStyle.getPropertyValue('bottom') ) + this.speed + 'px';
                 this.move();
@@ -54,6 +81,7 @@ export default class Biu{
         })
     }
     destroyed() {
+        workBus.deleteBiu(this.key);
         this.container.removeChild(this.el);
     }
 }

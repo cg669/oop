@@ -8,8 +8,12 @@ import {
     windowWith 
 } from '../constant/index';
 import { getArrayRandom } from '../utils/index';
+
 import Biu from './biu';
+import workBus from './workBus';
+
 import * as UUID from 'uuid-js';
+
 class Self implements SelfModel {
     width: number;
 
@@ -87,14 +91,17 @@ class Self implements SelfModel {
     }
     initBiu(){
         const elX = this.el.offsetLeft;
-        new Biu(this.container,{
-            size: 'big',
-            speed: 5,
-            basePostion:{
-                x: Number(elX) + this.width/2,
-                y: this.height + 10
-            }
-        })
+        if(workBus.biuList.length < 10){
+            const el = new Biu(this.container,{
+                size: 'big',
+                speed: 5,
+                basePostion:{
+                    x: Number(elX) + this.width/2,
+                    y: this.height + 10
+                }
+            })
+            workBus.saveBiu(el);
+        }
     }
     stop(){
         return this;

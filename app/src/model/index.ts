@@ -1,7 +1,5 @@
 
-export interface SelfOptions{
-    width: number;
-    height: number;
+export interface SelfOptions extends WidthAndHeight{
     level: 'easy' | 'normal' |'hard'
 }
 export interface SelfModel {
@@ -17,3 +15,10 @@ export interface BasePostion{
     x: number,
     y: number
 }
+
+export interface WidthAndHeight{
+    width: number;
+    height: number;
+}
+
+export type BoomType = 'emy' | 'biu';
