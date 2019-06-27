@@ -1,6 +1,6 @@
 import Self from './components/self';
 import EmyBus from './components/emyBus';
-
+import workBus from './components/workBus';
 
 const root = document.getElementById('root');
 
@@ -16,5 +16,7 @@ new EmyBus(root);
 //     height: 120
 // });
 self.init().biu();
+//  垃圾回收开启
+workBus.garbageCollection()
 // self2.init();
 // console.log(111);

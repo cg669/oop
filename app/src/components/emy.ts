@@ -51,18 +51,18 @@ export default class Emy{
             const top = this.el.offsetTop;
             const elStyle = window.getComputedStyle(this.el,null);
             // console.log(top,windowHeight - parseInt(elStyle.getPropertyValue('height')));
-            if(top < windowHeight - parseInt(elStyle.getPropertyValue('height')) && !workBus.isBoom(this.el,'emy')){
+            if( top < windowHeight - parseInt(elStyle.getPropertyValue('height'))){
                 // console.log(this.el.style.top);
                 this.el.style.top = parseInt(elStyle.getPropertyValue('top') ) + this.speed + 'px';
                 this.move();
             } else {
-                cancelAnimationFrame(this.iTimer);
                 this.destroyed();
-                this.iTimer = null;
             }
         })
     }
     destroyed() {
+        this.iTimer = null;
+        cancelAnimationFrame(this.iTimer);
         workBus.deleteEmy(this.key);
         this.container.removeChild(this.el);
     }

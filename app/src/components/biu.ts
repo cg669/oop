@@ -69,18 +69,18 @@ export default class Biu{
             const top = this.el.offsetTop;
             const elStyle = window.getComputedStyle(this.el,null);
             // console.log(workBus.isBiuBoom(this.key));
-            if(top > parseInt(elStyle.getPropertyValue('height')) && !workBus.isBoom(this.el)){
+            if( top > parseInt(elStyle.getPropertyValue('height'))){
                 // console.log(this.el.style.top);
                 this.el.style.bottom = parseInt(elStyle.getPropertyValue('bottom') ) + this.speed + 'px';
                 this.move();
             }else{
-                cancelAnimationFrame(this.iTimer);
                 this.destroyed();
-                this.iTimer = null;
             }
         })
     }
     destroyed() {
+        cancelAnimationFrame(this.iTimer);
+        this.iTimer = null;
         workBus.deleteBiu(this.key);
         this.container.removeChild(this.el);
     }
