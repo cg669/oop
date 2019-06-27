@@ -7,7 +7,8 @@ const root = document.getElementById('root');
 const self = new Self(root,{
     width: 100,
     height: 120,
-    level: 'hard'
+    level: 'easy',
+    speed: 5
 });
 new EmyBus(root);
 // const self2 = new Self(root,{

@@ -27,6 +27,8 @@ class Self implements SelfModel {
 
     level = 'normal';
 
+    speed: number;
+
     private key: string;
 
     private el: HTMLElement;
@@ -35,8 +37,10 @@ class Self implements SelfModel {
         this.width = options.width;
         this.height = options.height;
         this.level = options.level;
+        this.speed = options.speed;
         this.container = container;
         this.key = UUID.create();
+        
     }
     private getPositionX(num: number):number{
         if(windowWith - num < this.width){
@@ -94,7 +98,7 @@ class Self implements SelfModel {
         if(workBus.biuList.length < 10){
             const el = new Biu(this.container,{
                 size: 'big',
-                speed: 5,
+                speed: this.speed,
                 basePostion:{
                     x: Number(elX) + this.width/2,
                     y: this.height + 10

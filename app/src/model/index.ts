@@ -1,6 +1,7 @@
 
 export interface SelfOptions extends WidthAndHeight{
-    level: 'easy' | 'normal' |'hard'
+    level: 'easy' | 'normal' |'hard',
+    speed: number
 }
 export interface SelfModel {
     width: number;
