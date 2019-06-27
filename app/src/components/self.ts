@@ -40,7 +40,7 @@ class Self implements SelfModel {
         this.speed = options.speed;
         this.container = container;
         this.key = UUID.create();
-        
+        this.init().biu();
     }
     private getPositionX(num: number):number{
         if(windowWith - num < this.width){

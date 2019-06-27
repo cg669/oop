@@ -28,21 +28,28 @@ class WorkBus{
     deleteBiu( key:string ){
         this.biuList = this.biuList.filter( el => el.key !== key)
     }
+    //  将所有跟时间相关的事件放到统一的事件处理集合中--优化事件
+    playWork(){
+        this.iTimer = requestAnimationFrame( () => {
+            this.biuList.forEach( el => el.move());  //  子弹运动
+            this.emyList.forEach( el => el.move());  //  敌军运动
+            this.garbageCollection();  //  碰撞检测以及回收
+            this.playWork();
+        })
+    }
     /**
      * 新版的垃圾处理器
      */
     garbageCollection(){
-        this.iTimer = requestAnimationFrame( () => {
-            this.emyList.forEach( emy => {
-                this.biuList.forEach( biu => {
-                    if(collText(emy.el,biu.el)){
-                        emy.destroyed();
-                        biu.destroyed();
-                    }
-                })
-            });
-            this.garbageCollection();
-        })
+        this.emyList.forEach( emy => {
+            this.biuList.forEach( biu => {
+                if(collText(emy.el,biu.el)){
+                    emy.destroyed();
+                    biu.destroyed();
+                }
+            })
+        });
+        
     }
     /**
      * 关闭垃圾处理器

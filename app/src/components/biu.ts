@@ -26,8 +26,6 @@ export default class Biu{
 
     wh: WidthAndHeight; 
 
-    iTimer = null;
-
     constructor( container: HTMLElement, options:BiuOptions ){
         this.key = UUID.create();
         this.size = options.size;
@@ -61,26 +59,18 @@ export default class Biu{
         oDiv.style.bottom = this.basePostion.y + 'px';
         this.container.appendChild(oDiv);
         this.el = oDiv;
-        this.move();
         return this;
     }
     move(){
-        this.iTimer = requestAnimationFrame( ()=> {
-            const top = this.el.offsetTop;
-            const elStyle = window.getComputedStyle(this.el,null);
-            // console.log(workBus.isBiuBoom(this.key));
-            if( top > parseInt(elStyle.getPropertyValue('height'))){
-                // console.log(this.el.style.top);
-                this.el.style.bottom = parseInt(elStyle.getPropertyValue('bottom') ) + this.speed + 'px';
-                this.move();
-            }else{
-                this.destroyed();
-            }
-        })
+        const top = this.el.offsetTop;
+        const elStyle = window.getComputedStyle(this.el,null);
+        if( top > parseInt(elStyle.getPropertyValue('height'))){
+            this.el.style.bottom = parseInt(elStyle.getPropertyValue('bottom') ) + this.speed + 'px';
+        }else{
+            this.destroyed()
+        }
     }
     destroyed() {
-        cancelAnimationFrame(this.iTimer);
-        this.iTimer = null;
         workBus.deleteBiu(this.key);
         this.container.removeChild(this.el);
     }

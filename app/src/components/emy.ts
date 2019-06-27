@@ -26,8 +26,6 @@ export default class Emy{
 
     container: HTMLElement;
 
-    iTimer = null;
-
     constructor( container: HTMLElement, options:BiuOptions ){
         this.key = UUID.create();
         this.size = options.size;
@@ -43,26 +41,18 @@ export default class Emy{
         oDiv.style.top = this.basePostion.y + 'px';
         this.container.appendChild(oDiv);
         this.el = oDiv;
-        this.move();
         return this;
     }
     move(){
-        this.iTimer = requestAnimationFrame( ()=> {
-            const top = this.el.offsetTop;
-            const elStyle = window.getComputedStyle(this.el,null);
-            // console.log(top,windowHeight - parseInt(elStyle.getPropertyValue('height')));
-            if( top < windowHeight - parseInt(elStyle.getPropertyValue('height'))){
-                // console.log(this.el.style.top);
-                this.el.style.top = parseInt(elStyle.getPropertyValue('top') ) + this.speed + 'px';
-                this.move();
-            } else {
-                this.destroyed();
-            }
-        })
+        const top = this.el.offsetTop;
+        const elStyle = window.getComputedStyle(this.el,null);
+        if( top < windowHeight - parseInt(elStyle.getPropertyValue('height'))){
+            this.el.style.top = parseInt(elStyle.getPropertyValue('top') ) + this.speed + 'px';
+        }else{
+            this.destroyed()
+        } 
     }
     destroyed() {
-        this.iTimer = null;
-        cancelAnimationFrame(this.iTimer);
         workBus.deleteEmy(this.key);
         this.container.removeChild(this.el);
     }
