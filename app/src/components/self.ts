@@ -29,9 +29,9 @@ class Self implements SelfModel {
 
     speed: number;
 
-    private key: string;
+    key: string;
 
-    private el: HTMLElement;
+    el: HTMLElement;
 
     constructor(container: HTMLElement,options:SelfOptions){
         this.width = options.width;
@@ -95,7 +95,7 @@ class Self implements SelfModel {
     }
     initBiu(){
         const elX = this.el.offsetLeft;
-        if(workBus.biuList.length < 10){
+        if(workBus.biuList.length < 10 && workBus.isWorking ){
             const el = new Biu(this.container,{
                 size: 'big',
                 speed: this.speed,
@@ -107,8 +107,11 @@ class Self implements SelfModel {
             workBus.saveBiu(el);
         }
     }
-    stop(){
-        return this;
+    destroyed(){
+        clearInterval(this.iTimer);
+        this.iTimer = null;
+        workBus.deleteSelf(this.key);
+        this.container.removeChild(this.el);
     }
 };
 

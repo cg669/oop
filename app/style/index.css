@@ -39,3 +39,14 @@ html,body,.root{
     height: 30px;
     background-color: red;
 }
+
+.btn{
+    position: absolute;
+    background-color: burlywood;
+    color: #fff;
+    cursor: pointer;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
