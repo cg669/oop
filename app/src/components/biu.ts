@@ -46,6 +46,11 @@ export default class Biu{
                 width: 6,
                 height: 6
             }
+        }else if( size === 'super'){
+            return {
+                width: 50,
+                height:50
+            }
         }
         return {
             width: 4,

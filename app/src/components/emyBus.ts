@@ -19,7 +19,7 @@ export default class EmyBus{
         const width = 200;
         const height = 30;
         const x = Math.random() * (windowWith - width);
-        if(workBus.emyList.length < 10 && workBus.isWorking ){
+        if(workBus.isWorking ){
             const el = new Emy(this.container,{
                 size: 'big',
                 speed: 4,

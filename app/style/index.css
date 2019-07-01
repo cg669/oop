@@ -32,6 +32,12 @@ html,body,.root{
     width: 4px; 
     height: 4px;
 }
+
+.biu-super{
+    background-color: #000;
+    width: 50px;
+    height: 50px;
+}
 /* 敌军 */
 .emy{
     position: absolute;
@@ -49,4 +55,16 @@ html,body,.root{
     height: 30px;
     line-height: 30px;
     text-align: center;
+}
+
+.score{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: pink;
+    color: black;
 }

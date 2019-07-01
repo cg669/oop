@@ -5,7 +5,7 @@ import Biu from './biu';
 import Self from './self';
 import { BoomType } from '../model';
 import { collText } from '../utils';
-
+const score = document.getElementById('score')
 type ArrItem = Biu|Emy;
 class WorkBus{
     
@@ -18,6 +18,8 @@ class WorkBus{
     iTimer = null;
 
     isWorking: boolean;
+
+    score: number = 0;
 
     saveSelf( item: Self ){
         this.selfList.push(item);
@@ -42,6 +44,9 @@ class WorkBus{
     deleteBiu( key:string ){
         this.biuList = this.biuList.filter( el => el.key !== key)
     }
+    clearEmy(){
+        this.emyList.forEach( el => el.destroyed());
+    }
     //  将所有跟时间相关的事件放到统一的事件处理集合中--优化事件
     playWork(){
         this.isWorking = true;
@@ -49,6 +54,7 @@ class WorkBus{
             this.biuList.forEach( el => el.move());  //  子弹运动
             this.emyList.forEach( el => el.move());  //  敌军运动
             this.garbageCollection();  //  碰撞检测以及回收
+            score.innerHTML = this.score.toString();
             if(!this.isWorking){
                 return;
             };
@@ -68,18 +74,25 @@ class WorkBus{
      * 新版的垃圾处理器
      */
     garbageCollection(){
+        // if(this.score % 20 === 0 && this.score !== 0){
+        //     console.log(this.biuList);
+        //     this.clearEmy();
+        //     this.score += 1;
+        //     return;
+        // }
         this.emyList.forEach( emy => {
             this.biuList.forEach( biu => {
                 if(collText(emy.el,biu.el)){
                     emy.destroyed();
                     biu.destroyed();
+                    this.score += 1;
                 }
             })
             this.selfList.forEach( self => {
                 if(collText(emy.el,self.el)){
                     emy.destroyed();
-                    self.destroyed();
-                    this.stopWork();
+                    // self.destroyed();
+                    // this.stopWork();
                 }
             })
         });

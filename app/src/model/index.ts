@@ -1,6 +1,6 @@
 
 export interface SelfOptions extends WidthAndHeight{
-    level: 'easy' | 'normal' |'hard',
+    level: 'easy' | 'normal' |'hard' | 'wudi',
     speed: number
 }
 export interface SelfModel {
@@ -8,7 +8,7 @@ export interface SelfModel {
     height: number;
 }
 export interface BiuOptions{
-    size: 'big' | 'middle' | 'small',
+    size: 'big' | 'middle' | 'small' | 'super',
     speed: number,
     basePostion: BasePostion
 }

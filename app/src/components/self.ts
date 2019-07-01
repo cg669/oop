@@ -90,12 +90,13 @@ class Self implements SelfModel {
     biu(){
         let time = this.level === 'hard' ? 1200 : 800;
         time = this.level === 'easy' ? 400 : 800;
+        time = this.level === 'wudi' ? 100 : 400;
         this.iTimer = setInterval( ()=> this.initBiu(), time);
         return this;
     }
     initBiu(){
         const elX = this.el.offsetLeft;
-        if(workBus.biuList.length < 10 && workBus.isWorking ){
+        if(workBus.isWorking ){
             const el = new Biu(this.container,{
                 size: 'big',
                 speed: this.speed,
